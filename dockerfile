@@ -18,8 +18,11 @@ COPY conf.d/ /etc/nginx/conf.d/
 # 필요 시 정적 파일을 복사합니다. 예:
 # COPY html/ /usr/share/nginx/html/
 
+# 'envsubst'를 사용하여 환경 변수 치환 및 Nginx 시작
+CMD ["/bin/sh", "-c", "envsubst < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+
 # 포트 노출
 EXPOSE 80
 
 # Nginx를 포그라운드에서 실행
-CMD ["nginx", "-g", "daemon off;"]
+# CMD ["nginx", "-g", "daemon off;"]
