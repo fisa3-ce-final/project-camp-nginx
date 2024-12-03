@@ -6,12 +6,10 @@ FROM nginx:1.27.2
 # 빌드 시 사용할 환경변수 선언
 ARG FRONT_ALB_DNS
 ARG BACK_ALB_DNS
-ARG API_GATEWAY_ENDPOINT
 
 # 런타임에서도 사용할 수 있도록 환경변수를 설정
 ENV FRONT_ALB_DNS=${FRONT_ALB_DNS}
 ENV BACK_ALB_DNS=${BACK_ALB_DNS}
-ENV API_GATEWAY_ENDPOINT=${API_GATEWAY_ENDPOINT}
 
 # 작업 디렉토리 설정
 WORKDIR /etc/nginx
@@ -26,7 +24,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY conf.d/default.conf.template /etc/nginx/conf.d/default.template
 
 # 템플릿 파일에서 환경변수를 치환하여 설정 파일 생성
-RUN envsubst '${FRONT_ALB_DNS} ${BACK_ALB_DNS} ${API_GATEWAY_ENDPOINT}' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf
+RUN envsubst '${FRONT_ALB_DNS} ${BACK_ALB_DNS}' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf
 
 # 포트 노출
 EXPOSE 80
