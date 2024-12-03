@@ -28,7 +28,7 @@ server {
         rewrite ^/backend(/.*)$ $1 break;
     }
 
-    location ~ ^/backend/[^/]+/views {
+    location ~ ^/backend/(?<id>[^/]+)/views {
         proxy_pass ${API_GATEWAY_ENDPOINT}; # 백엔드 ALB URL
         proxy_http_version 1.1;
         proxy_set_header Host $host;
