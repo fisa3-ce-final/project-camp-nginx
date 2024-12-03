@@ -24,7 +24,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY conf.d/default.conf.template /etc/nginx/conf.d/default.template
 
 # 템플릿 파일에서 환경변수를 치환하여 설정 파일 생성
-RUN envsubst '${FRONT_ALB_DNS} ${BACK_ALB_DNS}' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf
+RUN envsubst '${FRONT_ALB_DNS} ${BACK_ALB_DNS} ${API_GATEWAY_ENDPOINT}' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf
 
 # 포트 노출
 EXPOSE 80
