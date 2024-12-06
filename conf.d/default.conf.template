@@ -28,6 +28,13 @@ server {
         rewrite ^/backend(/.*)$ $1 break;
     }
 
+    location /metrics {
+    stub_status on;
+    access_log off;
+    allow all;  # 또는 ALB의 CIDR 범위를 허용
+    deny all;
+}
+
     # 추가적인 보안 헤더
     add_header X-Frame-Options "SAMEORIGIN";
     add_header X-XSS-Protection "1; mode=block";
